@@ -174,17 +174,17 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <div id="opm-sanger-processing" class="section level1">
 <h1>OPM Sanger processing</h1>
-<div id="this-r-markdown-notebook-has-been-written-to-outline-the-steps-taken-to-quality-trim-and-merge-sanger-sequences-for-oak-processionary-moth-nest-associates." class="section level2">
-<h2>This <a href="http://rmarkdown.rstudio.com">R Markdown</a> notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates.</h2>
+<div id="this-r-markdown-notebook-has-been-written-to-outline-the-steps-taken-to-quality-trim-and-merge-sanger-sequences-for-oak-processionary-moth-nest-associates." class="section level3">
+<h3>This <a href="http://rmarkdown.rstudio.com">R Markdown</a> notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates.</h3>
 </div>
-</div>
-<div id="part-one" class="section level1">
-<h1>Part one</h1>
-<p>Set up the libraries we need. We’re going to be using a library called <a href="https://github.com/roblanf/sangeranalyseR">sangeranalyseR</a> so that the process is more documented and reproducible compared to the sual trimming and mergeing by eye performed using Geneious, FinchTV and similar programs.</p>
+<div id="part-one---set-up-the-libraries-we-need." class="section level2">
+<h2>Part one - Set up the libraries we need.</h2>
+<p>We’re going to be using a library called <a href="https://github.com/roblanf/sangeranalyseR">sangeranalyseR</a> so that the process is more documented and reproducible compared to the sual trimming and mergeing by eye performed using Geneious, FinchTV and similar programs.</p>
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojT1BNIFNhbmdlciBwcm9jZXNzaW5nDQoNCiMjVGhpcyBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgbm90ZWJvb2sgaGFzIGJlZW4gd3JpdHRlbiB0byBvdXRsaW5lIHRoZSBzdGVwcyB0YWtlbiB0byBxdWFsaXR5IHRyaW0gYW5kIG1lcmdlIHNhbmdlciBzZXF1ZW5jZXMgZm9yIE9BSyBQcm9jZXNzaW9uYXJ5IE1vdGggbmVzdCBhc3NvY2lhdGVzLiANCg0KI1BhcnQgb25lDQpTZXQgdXAgdGhlIGxpYnJhcmllcyB3ZSBuZWVkLiBXZSdyZSBnb2luZyB0byBiZSB1c2luZyBhIGxpYnJhcnkgY2FsbGVkIFtzYW5nZXJhbmFseXNlUl0oaHR0cHM6Ly9naXRodWIuY29tL3JvYmxhbmYvc2FuZ2VyYW5hbHlzZVIpIHNvIHRoYXQgdGhlIHByb2Nlc3MgaXMgbW9yZSBkb2N1bWVudGVkIGFuZCByZXByb2R1Y2libGUgY29tcGFyZWQgdG8gdGhlIHN1YWwgdHJpbW1pbmcgYW5kIG1lcmdlaW5nIGJ5IGV5ZSBwZXJmb3JtZWQgdXNpbmcgR2VuZWlvdXMsIEZpbmNoVFYgYW5kIHNpbWlsYXIgcHJvZ3JhbXMuDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojT1BNIFNhbmdlciBwcm9jZXNzaW5nDQoNCiMjI1RoaXMgW1IgTWFya2Rvd25dKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20pIG5vdGVib29rIGhhcyBiZWVuIHdyaXR0ZW4gdG8gb3V0bGluZSB0aGUgc3RlcHMgdGFrZW4gdG8gcXVhbGl0eSB0cmltIGFuZCBtZXJnZSBzYW5nZXIgc2VxdWVuY2VzIGZvciBPQUsgUHJvY2Vzc2lvbmFyeSBNb3RoIG5lc3QgYXNzb2NpYXRlcy4gDQoNCiMjUGFydCBvbmUgLSBTZXQgdXAgdGhlIGxpYnJhcmllcyB3ZSBuZWVkLg0KV2UncmUgZ29pbmcgdG8gYmUgdXNpbmcgYSBsaWJyYXJ5IGNhbGxlZCBbc2FuZ2VyYW5hbHlzZVJdKGh0dHBzOi8vZ2l0aHViLmNvbS9yb2JsYW5mL3NhbmdlcmFuYWx5c2VSKSBzbyB0aGF0IHRoZSBwcm9jZXNzIGlzIG1vcmUgZG9jdW1lbnRlZCBhbmQgcmVwcm9kdWNpYmxlIGNvbXBhcmVkIHRvIHRoZSBzdWFsIHRyaW1taW5nIGFuZCBtZXJnZWluZyBieSBleWUgcGVyZm9ybWVkIHVzaW5nIEdlbmVpb3VzLCBGaW5jaFRWIGFuZCBzaW1pbGFyIHByb2dyYW1zLg0K</div>
 
 
 
