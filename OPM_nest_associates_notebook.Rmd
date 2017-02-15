@@ -1,0 +1,11 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+#OPM Sanger processing
+
+##This [R Markdown](http://rmarkdown.rstudio.com) notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates. 
+
+#Part one
+Set up the libraries we need. We're going to be using a library called [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) so that the process is more documented and reproducible compared to the sual trimming and mergeing by eye performed using Geneious, FinchTV and similar programs.
