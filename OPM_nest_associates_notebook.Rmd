@@ -9,3 +9,10 @@ output: html_notebook
 
 ##Part one - Set up the libraries we need.
 We're going to be using a library called [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) so that the process is more documented and reproducible compared to the sual trimming and mergeing by eye performed using Geneious, FinchTV and similar programs.
+
+#Nope it appears that I don't have sufficient install permissions to load all the packages I need... dead repo until I can get proper permissions.
+
+```{r}
+
+```
+
