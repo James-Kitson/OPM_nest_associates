@@ -41,6 +41,6 @@ We also need to find any secondary peaks in our trace (contamination/background 
 sp = secondary.peaks(seq.sanger)
 sp$secondary.peaks
 sp$read
-sp = secondary.peaks(seq.sanger,output.folder="ab1_sequences/",file.prefix="150413-51_A01_OPMA1_HCO2198puc")
+sp = secondary.peaks(seq.sanger,output.folder="trimmed_seq_figures/",file.prefix="150413-51_A01_OPMA1_HCO2198puc")
 ```
 
