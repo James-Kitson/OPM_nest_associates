@@ -26,8 +26,8 @@ input.folder<-"ab1_sequences/"
 forward.suffix<-"_HCO2198puc.ab1"
 reverse.suffix<-"_LCO1490puc.ab1"
 
-#Make the readsets using the suffixes
-rs<-make.readsets(input.folder, forward.suffix, reverse.suffix)
+#Make the readsets using the suffixes and only keep trimmed sequences longer than 250bp
+rs<-make.readsets(input.folder, forward.suffix, reverse.suffix, trim=TRUE, trimm.cutoff=0.000001, min.length=250)
 rs$readsets
 rs$read.summaries
 ```
