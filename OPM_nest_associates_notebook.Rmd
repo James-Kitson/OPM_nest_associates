@@ -8,7 +8,7 @@ output: html_notebook
 ###This [R Markdown](http://rmarkdown.rstudio.com) notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates. The code used here draws heavily on the [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) vignette provided by [Robert Lanfear](http:www.robertlanfear.com).
 
 ##Part one - Set up the libraries we need.
-We're going to be using a library called [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) so that the process is more documented and reproducible compared to the usual trimming and mergeing by eye performed using Geneious, FinchTV or similar programs. There are quite a few required libraries here but a script called [installs_for_sangerseqR.R](https://github.com/James-Kitson/OPM_nest_associates/blob/master/installs_for_sangerseqR.R) contains all the relevant commands.
+We're going to be using a library called [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) so that the process is more documented and reproducible compared to the usual trimming and merging by eye performed using Geneious, FinchTV or similar programs. There are quite a few required libraries here but the script called [installs_for_sangerseqR.R](https://github.com/James-Kitson/OPM_nest_associates/blob/master/installs_for_sangerseqR.R) contains all the relevant commands.
 
 ```{r}
 #Load the library we need
@@ -31,4 +31,5 @@ rs<-make.readsets(input.folder, forward.suffix, reverse.suffix)
 rs$readsets
 rs$read.summaries
 ```
+
 
