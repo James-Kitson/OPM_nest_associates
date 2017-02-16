@@ -179,19 +179,47 @@ $(document).ready(function () {
 </div>
 <div id="part-one---set-up-the-libraries-we-need." class="section level2">
 <h2>Part one - Set up the libraries we need.</h2>
-<p>We’re going to be using a library called <a href="https://github.com/roblanf/sangeranalyseR">sangeranalyseR</a> so that the process is more documented and reproducible compared to the sual trimming and mergeing by eye performed using Geneious, FinchTV and similar programs.</p>
-</div>
-</div>
-<div id="nope-it-appears-that-i-dont-have-sufficient-install-permissions-to-load-all-the-packages-i-need-dead-repo-until-i-can-get-proper-permissions." class="section level1">
-<h1>Nope it appears that I don’t have sufficient install permissions to load all the packages I need… dead repo until I can get proper permissions.</h1>
+<p>We’re going to be using a library called <a href="https://github.com/roblanf/sangeranalyseR">sangeranalyseR</a> so that the process is more documented and reproducible compared to the usual trimming and mergeing by eye performed using Geneious, FinchTV or similar programs. There are quite a few required libraries here but a script called <a href="https://github.com/James-Kitson/OPM_nest_associates/blob/master/installs_for_sangerseqR.R">installs_for_sangerseqR.R</a> contains all the relevant commands.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xvYWQgdGhlIGxpYnJhcnkgd2UgbmVlZFxubGlicmFyeShzYW5nZXJzZXFSKVxuYGBgIn0= -->
+<pre class="r"><code>#Load the library we need
+library(sangerseqR)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>We need to set a path to the sequences, read them in and then process them into sangerseqR format.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGFuZ2UgdGhpcyB0byBwb2ludCB0byBhbnkgb2YgdGhlIHRlc3QgZGF0YSBmaWxlcyB5b3UgZG93bmxvYWRlZFxuc2VxLmZpbGVwYXRoPC1cImFiMV9zZXF1ZW5jZXMvMTUwNDEzLTUxX0EwMV9PUE1BMV9IQ08yMTk4cHVjLmFiMVwiXG5zZXEuYWJpZjwtcmVhZC5hYmlmKHNlcS5maWxlcGF0aClcbnNlcS5zYW5nZXI8LXNhbmdlcnNlcShzZXEuYWJpZilcbmBgYCJ9 -->
+<pre class="r"><code># change this to point to any of the test data files you downloaded
+seq.filepath&lt;-&quot;ab1_sequences/150413-51_A01_OPMA1_HCO2198puc.ab1&quot;
+seq.abif&lt;-read.abif(seq.filepath)
+seq.sanger&lt;-sangerseq(seq.abif)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Next we’ll trim low quality reads. This is mostly primers at the start of sequences but also weak signal at the end. It should also kill any failed sequences.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJpbXM8LXRyaW0ubW90dChzZXEuYWJpZilcbnRyaW1zXG5gYGAifQ== -->
+<pre class="r"><code>trims&lt;-trim.mott(seq.abif)
+trims</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJHN0YXJ0XG5bMV0gMzZcblxuJGZpbmlzaFxuWzFdIDU5NVxuIn0= -->
+<pre><code>$start
+[1] 36
+
+$finish
+[1] 595</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojT1BNIFNhbmdlciBwcm9jZXNzaW5nDQoNCiMjI1RoaXMgW1IgTWFya2Rvd25dKGh0dHA6Ly9ybWFya2Rvd24ucnN0dWRpby5jb20pIG5vdGVib29rIGhhcyBiZWVuIHdyaXR0ZW4gdG8gb3V0bGluZSB0aGUgc3RlcHMgdGFrZW4gdG8gcXVhbGl0eSB0cmltIGFuZCBtZXJnZSBzYW5nZXIgc2VxdWVuY2VzIGZvciBPQUsgUHJvY2Vzc2lvbmFyeSBNb3RoIG5lc3QgYXNzb2NpYXRlcy4gDQoNCiMjUGFydCBvbmUgLSBTZXQgdXAgdGhlIGxpYnJhcmllcyB3ZSBuZWVkLg0KV2UncmUgZ29pbmcgdG8gYmUgdXNpbmcgYSBsaWJyYXJ5IGNhbGxlZCBbc2FuZ2VyYW5hbHlzZVJdKGh0dHBzOi8vZ2l0aHViLmNvbS9yb2JsYW5mL3NhbmdlcmFuYWx5c2VSKSBzbyB0aGF0IHRoZSBwcm9jZXNzIGlzIG1vcmUgZG9jdW1lbnRlZCBhbmQgcmVwcm9kdWNpYmxlIGNvbXBhcmVkIHRvIHRoZSBzdWFsIHRyaW1taW5nIGFuZCBtZXJnZWluZyBieSBleWUgcGVyZm9ybWVkIHVzaW5nIEdlbmVpb3VzLCBGaW5jaFRWIGFuZCBzaW1pbGFyIHByb2dyYW1zLg0KDQojTm9wZSBpdCBhcHBlYXJzIHRoYXQgSSBkb24ndCBoYXZlIHN1ZmZpY2llbnQgaW5zdGFsbCBwZXJtaXNzaW9ucyB0byBsb2FkIGFsbCB0aGUgcGFja2FnZXMgSSBuZWVkLi4uIGRlYWQgcmVwbyB1bnRpbCBJIGNhbiBnZXQgcHJvcGVyIHBlcm1pc3Npb25zLg0KDQpgYGB7cn0NCg0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKI09QTSBTYW5nZXIgcHJvY2Vzc2luZwoKIyMjVGhpcyBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgbm90ZWJvb2sgaGFzIGJlZW4gd3JpdHRlbiB0byBvdXRsaW5lIHRoZSBzdGVwcyB0YWtlbiB0byBxdWFsaXR5IHRyaW0gYW5kIG1lcmdlIHNhbmdlciBzZXF1ZW5jZXMgZm9yIE9BSyBQcm9jZXNzaW9uYXJ5IE1vdGggbmVzdCBhc3NvY2lhdGVzLiAKCiMjUGFydCBvbmUgLSBTZXQgdXAgdGhlIGxpYnJhcmllcyB3ZSBuZWVkLgpXZSdyZSBnb2luZyB0byBiZSB1c2luZyBhIGxpYnJhcnkgY2FsbGVkIFtzYW5nZXJhbmFseXNlUl0oaHR0cHM6Ly9naXRodWIuY29tL3JvYmxhbmYvc2FuZ2VyYW5hbHlzZVIpIHNvIHRoYXQgdGhlIHByb2Nlc3MgaXMgbW9yZSBkb2N1bWVudGVkIGFuZCByZXByb2R1Y2libGUgY29tcGFyZWQgdG8gdGhlIHVzdWFsIHRyaW1taW5nIGFuZCBtZXJnZWluZyBieSBleWUgcGVyZm9ybWVkIHVzaW5nIEdlbmVpb3VzLCBGaW5jaFRWIG9yIHNpbWlsYXIgcHJvZ3JhbXMuIFRoZXJlIGFyZSBxdWl0ZSBhIGZldyByZXF1aXJlZCBsaWJyYXJpZXMgaGVyZSBidXQgYSBzY3JpcHQgY2FsbGVkIFtpbnN0YWxsc19mb3Jfc2FuZ2Vyc2VxUi5SXShodHRwczovL2dpdGh1Yi5jb20vSmFtZXMtS2l0c29uL09QTV9uZXN0X2Fzc29jaWF0ZXMvYmxvYi9tYXN0ZXIvaW5zdGFsbHNfZm9yX3NhbmdlcnNlcVIuUikgY29udGFpbnMgYWxsIHRoZSByZWxldmFudCBjb21tYW5kcy4KCmBgYHtyfQojTG9hZCB0aGUgbGlicmFyeSB3ZSBuZWVkCmxpYnJhcnkoc2FuZ2Vyc2VxUikKYGBgCgpXZSBuZWVkIHRvIHNldCBhIHBhdGggdG8gdGhlIHNlcXVlbmNlcywgcmVhZCB0aGVtIGluIGFuZCB0aGVuIHByb2Nlc3MgdGhlbSBpbnRvIHNhbmdlcnNlcVIgZm9ybWF0LgpgYGB7cn0KIyBjaGFuZ2UgdGhpcyB0byBwb2ludCB0byBhbnkgb2YgdGhlIHRlc3QgZGF0YSBmaWxlcyB5b3UgZG93bmxvYWRlZApzZXEuZmlsZXBhdGg8LSJhYjFfc2VxdWVuY2VzLzE1MDQxMy01MV9BMDFfT1BNQTFfSENPMjE5OHB1Yy5hYjEiCnNlcS5hYmlmPC1yZWFkLmFiaWYoc2VxLmZpbGVwYXRoKQpzZXEuc2FuZ2VyPC1zYW5nZXJzZXEoc2VxLmFiaWYpCmBgYAoKTmV4dCB3ZSdsbCB0cmltIGxvdyBxdWFsaXR5IHJlYWRzLiBUaGlzIGlzIG1vc3RseSBwcmltZXJzIGF0IHRoZSBzdGFydCBvZiBzZXF1ZW5jZXMgYnV0IGFsc28gd2VhayBzaWduYWwgYXQgdGhlIGVuZC4gSXQgc2hvdWxkIGFsc28ga2lsbCBhbnkgZmFpbGVkIHNlcXVlbmNlcy4KYGBge3J9CnRyaW1zPC10cmltLm1vdHQoc2VxLmFiaWYpCnRyaW1zCmBgYAoK</div>
 
 
 

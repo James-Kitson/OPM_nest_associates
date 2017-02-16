@@ -15,4 +15,17 @@ We're going to be using a library called [sangeranalyseR](https://github.com/rob
 library(sangerseqR)
 ```
 
+We need to set a path to the sequences, read them in and then process them into sangerseqR format.
+```{r}
+# change this to point to any of the test data files you downloaded
+seq.filepath<-"ab1_sequences/150413-51_A01_OPMA1_HCO2198puc.ab1"
+seq.abif<-read.abif(seq.filepath)
+seq.sanger<-sangerseq(seq.abif)
+```
+
+Next we'll trim low quality reads. This is mostly primers at the start of sequences but also weak signal at the end. It should also kill any failed sequences.
+```{r}
+trims<-trim.mott(seq.abif)
+trims
+```
 
