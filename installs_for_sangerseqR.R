@@ -14,3 +14,8 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("DECIPHER")
 biocLite("Biostrings")
 biocLite("sangerseqR")
+
+install.packages("devtools")
+library(devtools)
+install_github("roblanf/sangeranalyseR")
+library(sangeranalyseR)
