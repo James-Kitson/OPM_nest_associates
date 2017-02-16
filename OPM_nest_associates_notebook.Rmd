@@ -15,32 +15,20 @@ We're going to be using a library called [sangeranalyseR](https://github.com/rob
 library(sangerseqR)
 ```
 
-We need to set a path to the sequences, read them in and then process them into sangerseqR format.
-```{r}
-seq.filepath<-"ab1_sequences/150413-51_A01_OPMA1_HCO2198puc.ab1"
-seq.abif<-read.abif(seq.filepath)
-seq.sanger<-sangerseq(seq.abif)
-```
+## Part two - Make group sequences by sample
+We will be partially automating the trimming and merging processes as there's quite a few to deal with. For this, we're going to be using the ```make.readsets``` approach instead of the ```make.consensus.seqs``` approach which hides a lot of the detail I want to show here.
 
-Next we'll trim low quality reads. This is mostly primers at the start of sequences but also weak signal at the end. It should also kill any failed sequences.
 ```{r}
-trims<-trim.mott(seq.abif)
-trims
-```
+#Define the folder containing the .ab1 sequences
+input.folder<-"ab1_sequences/"
 
-We can compare the trimmed and untrimmed sequences.
-```{r}
-seq.untrimmed = seq.abif@data$PBAS.2
-seq.trimmed = substring(seq.untrimmed, trims$start, trims$finish)
-seq.untrimmed
-seq.trimmed
-```
+#Define the suffixes that denote the sequence direction
+forward.suffix<-"_HCO2198puc.ab1"
+reverse.suffix<-"_LCO1490puc.ab1"
 
-We also need to find any secondary peaks in our trace (contamination/background noise or possibly heterozygous sequences if relevant).
-```{r}
-sp = secondary.peaks(seq.sanger)
-sp$secondary.peaks
-sp$read
-sp = secondary.peaks(seq.sanger,output.folder="trimmed_seq_figures/",file.prefix="150413-51_A01_OPMA1_HCO2198puc")
+#Make the readsets using the suffixes
+rs<-make.readsets(input.folder, forward.suffix, reverse.suffix)
+rs$readsets
+rs$read.summaries
 ```
 
