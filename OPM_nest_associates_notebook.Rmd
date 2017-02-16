@@ -5,7 +5,7 @@ output: html_notebook
 
 #OPM Sanger processing
 
-###This [R Markdown](http://rmarkdown.rstudio.com) notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates. 
+###This [R Markdown](http://rmarkdown.rstudio.com) notebook has been written to outline the steps taken to quality trim and merge sanger sequences for OAK Processionary Moth nest associates. The code used here draws heavily on the [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) vignette provided by [Robert Lanfear](www.robertlanfear.com).
 
 ##Part one - Set up the libraries we need.
 We're going to be using a library called [sangeranalyseR](https://github.com/roblanf/sangeranalyseR) so that the process is more documented and reproducible compared to the usual trimming and mergeing by eye performed using Geneious, FinchTV or similar programs. There are quite a few required libraries here but a script called [installs_for_sangerseqR.R](https://github.com/James-Kitson/OPM_nest_associates/blob/master/installs_for_sangerseqR.R) contains all the relevant commands.
@@ -17,7 +17,6 @@ library(sangerseqR)
 
 We need to set a path to the sequences, read them in and then process them into sangerseqR format.
 ```{r}
-# change this to point to any of the test data files you downloaded
 seq.filepath<-"ab1_sequences/150413-51_A01_OPMA1_HCO2198puc.ab1"
 seq.abif<-read.abif(seq.filepath)
 seq.sanger<-sangerseq(seq.abif)
@@ -27,5 +26,12 @@ Next we'll trim low quality reads. This is mostly primers at the start of sequen
 ```{r}
 trims<-trim.mott(seq.abif)
 trims
+```
+
+```{r}
+seq.untrimmed = seq.abif@data$PBAS.2
+seq.trimmed = substring(seq.untrimmed, trims$start, trims$finish)
+seq.untrimmed
+seq.trimmed
 ```
 
