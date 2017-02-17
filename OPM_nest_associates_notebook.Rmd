@@ -17,13 +17,29 @@ rm(list=ls())
 library(sangeranalyseR)
 ```
 
-## Part two - Make group sequences by sample
-We will be automating the trimming and merging processes as there's quite a few to deal with. For this, we're going to be using the ```make.consensus.seqs``` approach.
+##Part two - check trimming parameters
+It's always good to check your trimmed output to make sure that you understand what the trimming and merging process we'll use later has done. It is important that the trimming parameters set below are identical to the ```make.consensus.seqs``` parameters used later so that you are seeing the same data.
 
 ```{r}
 #Define the folder containing the .ab1 sequences
 input.folder<-"ab1_sequences/"
 
+#Make a file list to process
+input.files<-list.files(input.folder)
+
+#Use a for loop to trim, check for secondary peaks and write a pdf chromatogram for each sequence
+for(i in 1:length(input.files)){
+  seq.abif<-read.abif(paste(input.folder,input.files[i], sep=""))
+  seq.sanger<-sangerseq(seq.abif)
+  sp<-secondary.peaks(seq.sanger, output.folder="trimmed_seq_figures", file.prefix = paste(input.files[i]))
+}
+```
+
+
+##Part three - Make consensus sequences of paired reads.
+We will be automating the trimming and merging processes as there's quite a few to deal with. For this, we're going to be using the ```make.consensus.seqs``` approach.
+
+```{r}
 #Define the suffixes that denote the sequence direction
 forward.suffix<-"_HCO2198puc.ab1"
 reverse.suffix<-"_LCO1490puc.ab1"
@@ -44,5 +60,11 @@ consensus.seqs$consensus.sequences
 BrowseSeqs(consensus.seqs$consensus.alignment)
 ```
 
+##Part four - output the processed sequences for analysis
+
+```{r}
+#write the merged sequences to FASTA format
+write.dna(consensus.seqs$consensus.sequences, file="Processed_reads.fasta", format='fasta', nbcol=-1, colw = 1000000)
+```
 
 
