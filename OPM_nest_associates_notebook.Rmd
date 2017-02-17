@@ -37,7 +37,7 @@ for(i in 1:length(input.files)){
 
 
 ##Part three - Make consensus sequences of paired reads.
-We will be automating the trimming and merging processes as there's quite a few to deal with. For this, we're going to be using the ```make.consensus.seqs``` approach.
+We will be automating the trimming and merging processes as there's quite a few to deal with. For this, we're going to be using the ```make.consensus.seqs``` approach with the same trimming parameters as above.
 
 ```{r}
 #Define the suffixes that denote the sequence direction
